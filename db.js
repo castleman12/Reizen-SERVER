@@ -3,9 +3,9 @@ const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
-    protocol: 'postgress',
+    protocol: 'postgres',
     dialectOptions: {
-      ssl: true
+      ssl: process.env.DATABASE_URL ?  true: false
     }
   });
 sequelize.authenticate().then(
