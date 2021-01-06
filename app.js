@@ -9,6 +9,7 @@ const packingItems = require('./controllers/PackingItemController')
 const sequelize = require('./db');
 const route = require('./middleware/route')
 const user = require('./controllers/UserController')
+app.use(require('./middleware/headers'));
 sequelize.sync();
 // sequelize.sync({force:true})
 
