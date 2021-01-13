@@ -20,7 +20,7 @@ app.use('/trip', validateSession,  trip)
 
 app.use('/packingList', packingList)
 app.use('/packingItems', packingItems)
-
+app.options('*', cors())
 
 db.authenticate()
   .then(() => db.sync() )  // => (force: true)

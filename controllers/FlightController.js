@@ -36,6 +36,22 @@ router.delete("/delete/:id", function (req, res) {
 
 })
 
+router.put('/:id', function(req, res){
+  const updateTrip = {
+    FlightFrom: req.body.FlightFrom,
+    FlightTo: req.body.FlightTo,
+    ArrivalDate: req.body.ArrivalDate,
+    ReturnDate: req.body.ReturnDate
+  };
+
+  const query = {where: {id: req.params.id}};
+
+  Trip.update(updateTrip, query)
+  .then(() => res.status(200).json({message: "Changed Flight Info!"}))
+  .catch((err) => res.status(500).json({ error: err}));
+      
+});
+
 
 // router.put('/:id', function(req, res){
 //   const updateTrip = {
