@@ -21,7 +21,7 @@ app.use(require('./middleware/headers'));
 app.use('/packingList', packingList)
 app.use('/packingItems', packingItems)
 app.options('*', cors())
-
+app.use(cors())
 db.authenticate()
   .then(() => db.sync() )  // => (force: true)
   .then(() => {
