@@ -8,14 +8,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        PackingID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        UserID: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         ArrivalDate: {
             type: DataTypes.DATE,
             allowNull: false

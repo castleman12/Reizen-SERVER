@@ -1,7 +1,7 @@
 require('dotenv').config();
 let express = require('express');
 let app = express();
-
+const db = require("./db");
 
 let trip = require('./controllers/FlightController')
 let packingList = require('./controllers/PackingListController')
@@ -21,6 +21,11 @@ app.use('/trip', validateSession,  trip)
 app.use('/packingList', packingList)
 app.use('/packingItems', packingItems)
 
-app.listen(process.env.PORT, () => {
-    console.log(`App is listening on port ${process.env.PORT}`)
-})
+
+db.authenticate()
+  .then(() => db.sync() )  // => (force: true)
+  .then(() => {
+    app.listen(process.env.PORT, () => console.log(`[Server: ] App is listening on Port ${process.env.PORT}`));  
+  })
+  .catch((err) => {console.log(err)
+  })
