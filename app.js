@@ -9,7 +9,7 @@ const packingItems = require('./controllers/PackingItemController')
 const sequelize = require('./db');
 const route = require('./middleware/route')
 const user = require('./controllers/UserController')
-
+const cors = require('cors');
 sequelize.sync();
 // sequelize.sync({force:true})
 
@@ -20,8 +20,7 @@ app.use('/trip', validateSession,  trip)
 app.use(require('./middleware/headers'));
 app.use('/packingList', packingList)
 app.use('/packingItems', packingItems)
-app.options('*', cors())
-app.use(cors())
+app.use(cors());
 db.authenticate()
   .then(() => db.sync() )  // => (force: true)
   .then(() => {
