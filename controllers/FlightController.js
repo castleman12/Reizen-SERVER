@@ -7,8 +7,6 @@ router.post('/', (req, res)=> {
   const addFlight = {
     FlightFrom: req.body.FlightFrom,
     FlightTo: req.body.FlightTo,
-    PackingID: req.body.PackingID,
-    UserID: req.user.id,
     ArrivalDate: req.body.ArrivalDate,
     ReturnDate: req.body.ReturnDate
   }
