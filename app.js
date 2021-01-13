@@ -9,7 +9,7 @@ const packingItems = require('./controllers/PackingItemController')
 const sequelize = require('./db');
 const route = require('./middleware/route')
 const user = require('./controllers/UserController')
-app.use(require('./middleware/headers'));
+
 sequelize.sync();
 // sequelize.sync({force:true})
 
@@ -17,7 +17,7 @@ app.use(express.json())
 const validateSession = require('./middleware/validatesession')
 app.use('/user', user)
 app.use('/trip', validateSession,  trip)
-
+app.use(require('./middleware/headers'));
 app.use('/packingList', packingList)
 app.use('/packingItems', packingItems)
 app.options('*', cors())
