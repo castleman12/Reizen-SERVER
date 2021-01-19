@@ -2,13 +2,15 @@
 
 const router = require('express').Router();
 const packingItems = require('../db').import('../models/packingItems')
-
+const trip = require('../db').import('../models/trips')
 
 router.use(require('../middleware/headers'))
 
+
 router.post('/', (req, res)=> {
   const addItem = {
-      ItemName: req.body.ItemName
+      ItemName: req.body.ItemName,
+      userId: req.user.id
       }
   packingItems.create(addItem)
     .then(Item => res.status(200).json(`${Item.ItemName} added to list!`))
@@ -16,10 +18,11 @@ router.post('/', (req, res)=> {
 })
 
 
-//** GET ENTRIES BY USERID **/
-router.get("/items", (req, res) => {
+//** GET ENTRIES BY FLIGHTID **/
+router.get("/user/:id", (req, res) => {
   packingItems.findAll({
-      where: { UserID: req.user.id}
+      where: { userId: req.user.id},
+      include: ['user']
   })
   .then(items => res.status(200).json(items))
   .catch(err => res.status(500).json({ error: err }))

@@ -21,8 +21,9 @@ Trip = sequelize.import('./models/trips')
 packingItems = sequelize.import('./models/packingItems')
 
 
+User.hasMany(packingItems)
 User.hasMany(Trip)
 Trip.belongsTo(User)
-Trip.hasMany(packingItems)
-packingItems.belongsTo(Trip)
+
+packingItems.belongsTo(User)
 module.exports = sequelize;

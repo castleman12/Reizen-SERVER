@@ -8,7 +8,8 @@ router.post('/', (req, res)=> {
     FlightFrom: req.body.FlightFrom,
     FlightTo: req.body.FlightTo,
     ArrivalDate: req.body.ArrivalDate,
-    ReturnDate: req.body.ReturnDate
+    ReturnDate: req.body.ReturnDate,
+    userId: req.user.id
   }
   Trip.create(addFlight)
     .then(flight => res.status(200).json(`A flight from ${flight.FlightFrom} to ${flight.FlightTo} has been added to your flight list!`))
@@ -17,9 +18,9 @@ router.post('/', (req, res)=> {
 
 
 //** GET ENTRIES BY USERID **/
-router.get("/user", (req, res) => {
+router.get("/user/:id", (req, res) => {
     Trip.findAll({
-        where: { UserID: req.user.id}
+        where: { userId: req.user.id}
     })
     .then(flight => res.status(200).json(flight))
     .catch(err => res.status(500).json({ error: err }))
@@ -28,7 +29,7 @@ router.get("/user", (req, res) => {
 
 //** DELETE **/
 router.delete("/delete/:id", function (req, res) {
-    const query = { where: { id: req.params.id, UserID: req.user.id}};
+    const query = { where: { id: req.params.id, userId: req.user.id}};
 
     Trip.destroy(query)
     .then(() => res.status(200).json({ message: "Trip removed!"}))

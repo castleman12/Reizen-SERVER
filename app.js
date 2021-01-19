@@ -15,9 +15,10 @@ sequelize.sync();
 app.use(express.json())
 const validateSession = require('./middleware/validatesession')
 app.use(require('./middleware/headers'));
+
 app.use('/user', user)
 app.use('/trip', validateSession,  trip)
-app.use('/packingItems', packingItems)
+app.use('/packingItems', validateSession, packingItems)
 
 db.authenticate()
   .then(() => db.sync() )  // => (force: true)
